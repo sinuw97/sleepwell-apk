@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">SleepWell</string>
+    <string name="menu_icon">menu\n</string>
+    <string name="default_web_client_id">http://563173319559-a0rqv0ir42p876209seds7ftcnn833fm.apps.googleusercontent.com
+</string>
+    <string name="back_button">back</string>
+    <string name="settings">Setting</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="notification">Notification</string>
+    <string name="privacy_policy"><![CDATA[Privacy & Policy]]></string>
+    <string name="about_us">About Us</string>
+
+</resources>

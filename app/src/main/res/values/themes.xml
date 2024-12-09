@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.SleepWell" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary color -->
+        <item name="colorPrimary">#9FBBD0</item>
+        <item name="colorPrimaryVariant">#9FBBD0</item>
+        <!-- Status bar -->
+        <item name="android:statusBarColor">#6482AD</item>
+        <item name="android:navigationBarColor">#6482AD</item>
+
+    </style>
+</resources>
