@@ -9,5 +9,6 @@
     <string name="notification">Notification</string>
     <string name="privacy_policy"><![CDATA[Privacy & Policy]]></string>
     <string name="about_us">About Us</string>
+    <string name="profile">Profile</string>
 
 </resources>

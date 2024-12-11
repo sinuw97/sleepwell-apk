@@ -1,9 +1,12 @@
-package com.brydev.sleepwell
+package com.brydev.sleepwell.ui
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.brydev.sleepwell.ApiClient
+import com.brydev.sleepwell.R
 import com.brydev.sleepwell.api.model.RegisterResponse
 import com.brydev.sleepwell.model.RegisterRequest
 import retrofit2.Call
@@ -59,8 +62,8 @@ class RegisterActivity : AppCompatActivity() {
             val password = etPassword.text.toString().trim()
             val dob = etDate.text.toString().trim()
             val gender = when (spGender.selectedItem.toString()) {
-                "Male" -> "M"
-                "Female" -> "F"
+//                "Male" -> "M"
+//                "Female" -> "F"
                 else -> ""
             }
 
@@ -78,11 +81,34 @@ class RegisterActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful) {
                         val registerResponse = response.body()
-                        Toast.makeText(
-                            this@RegisterActivity,
-                            registerResponse?.message ?: "Success",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        val token = registerResponse?.token //Ambil token JWT
+
+                        // Cek token apakah isi/kosong
+                        if (!token.isNullOrEmpty()) {
+                            Log.d("RegisterActivity", "Token received: $token")
+                            saveToken(token)
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "Registration Successful!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                            // Bersihkan input dan tutup activity
+                            etName.text.clear()
+                            etUsername.text.clear()
+                            etEmail.text.clear()
+                            etPassword.text.clear()
+                            etDate.text.clear()
+                            spGender.setSelection(0)
+                            finish()
+                        }
+                        else {
+                            Toast.makeText(
+                                this@RegisterActivity,
+                                "Error: ${response.message()}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
 
                         // Jika status response adalah success, maka bersihkan teks input
                         if (registerResponse?.status == "success") {
@@ -113,6 +139,14 @@ class RegisterActivity : AppCompatActivity() {
                 }
             })
         }
-
     }
+    // Func saveToken
+    private fun saveToken(token: String) {
+        val sharedPreferences = getSharedPreferences("SleepWellPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString("auth_token", token)
+        editor.apply()
+    }
+
+
 }

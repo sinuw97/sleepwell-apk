@@ -37,10 +37,13 @@ android {
 
         buildFeatures {
             dataBinding = true
+            viewBinding= true
         }
     }
 
     dependencies {
+        implementation ("androidx.viewpager2:viewpager2:1.1.0")
+        implementation (libs.lottie)
         implementation (libs.play.services.auth.v2050)
         implementation(libs.androidx.espresso.core)
         testImplementation(libs.junit.jupiter)

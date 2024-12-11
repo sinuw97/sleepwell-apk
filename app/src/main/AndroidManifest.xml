@@ -15,7 +15,7 @@
 
         <!-- SplashActivity -->
         <activity
-            android:name="com.brydev.sleepwell.SplashScreen"
+            android:name="com.brydev.sleepwell.ui.SplashScreen"
             android:theme="@style/Theme.SleepWell"
             android:exported="true">
             <intent-filter>
@@ -24,27 +24,34 @@
             </intent-filter>
         </activity>
 
-        <!-- LandingPageActivity -->
-        <activity
-            android:name="com.brydev.sleepwell.LandingPageActivity"
-            android:exported="true" />
-
         <!-- MainActivity (Login Activity) -->
         <activity
-            android:name="com.brydev.sleepwell.MainActivity"
+            android:name="com.brydev.sleepwell.ui.MainActivity"
             android:exported="true" />
 
         <!-- Other activities -->
         <activity
-            android:name="com.brydev.sleepwell.RegisterActivity"
+            android:name="com.brydev.sleepwell.ui.RegisterActivity"
             android:exported="true" />
 
         <activity
-            android:name="com.brydev.sleepwell.HomeActivity"
+            android:name="com.brydev.sleepwell.ui.HomeActivity"
             android:exported="true" />
 
         <activity
-            android:name="com.brydev.sleepwell.SettingsActivity"
+            android:name="com.brydev.sleepwell.ui.ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.brydev.sleepwell.ui.EditProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.brydev.sleepwell.ui.QuestionnaireActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.brydev.sleepwell.ui.ResultActivity"
+            android:exported="true" />
+        <activity
+            android:name="com.brydev.sleepwell.ui.HistoryActivity"
             android:exported="true" />
     </application>
 

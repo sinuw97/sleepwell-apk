@@ -1,10 +1,12 @@
-package com.brydev.sleepwell
+package com.brydev.sleepwell.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.brydev.sleepwell.adapter.LandingPageAdapter
+import com.brydev.sleepwell.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.*

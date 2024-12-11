@@ -1,8 +1,9 @@
-package com.brydev.sleepwell
+package com.brydev.sleepwell.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Switch
+import com.brydev.sleepwell.R
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

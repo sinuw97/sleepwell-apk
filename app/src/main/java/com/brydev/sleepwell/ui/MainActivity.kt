@@ -1,4 +1,4 @@
-package com.brydev.sleepwell
+package com.brydev.sleepwell.ui
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.brydev.sleepwell.ApiClient
+import com.brydev.sleepwell.R
 import com.brydev.sleepwell.api.model.RegisterResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,10 +71,8 @@ class MainActivity : AppCompatActivity() {
                     val loginResponse = response.body()
                     Toast.makeText(this@MainActivity, loginResponse?.message ?: "Login successful", Toast.LENGTH_SHORT).show()
 
-                    val editor = sharedPreferences.edit()
-                    editor.putString("auth_token", loginResponse?.token)
-                    editor.putBoolean("is_logged_in", true)
-                    editor.apply()
+                    // Save the JWT token in SharedPreferences
+                    loginResponse?.token?.let { saveToken(it) }
 
                     navigateToHome()
                 } else {
@@ -85,6 +85,14 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun saveToken(token: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("auth_token", token)
+        editor.putBoolean("is_logged_in", true)
+        editor.apply()
+    }
+
 
     private fun navigateToHome() {
         val intent = Intent(this@MainActivity, HomeActivity::class.java)
@@ -100,3 +108,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 }
+

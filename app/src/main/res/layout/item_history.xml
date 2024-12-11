@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="#6482AD">
+
+        <!-- Icon -->
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/low" />
+
+        <!-- Quality Text -->
+        <TextView
+            android:id="@+id/qualityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/icon"
+            android:layout_marginStart="16dp"
+            android:text="Low Sleep"
+            android:textSize="18sp"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/merriweathersans_bold" />
+
+        <!-- Date Text -->
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/icon"
+            android:layout_marginStart="16dp"
+            android:layout_below="@id/qualityText"
+            android:text="12/12/2024"
+            android:textSize="14sp"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/merriweather_regular" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

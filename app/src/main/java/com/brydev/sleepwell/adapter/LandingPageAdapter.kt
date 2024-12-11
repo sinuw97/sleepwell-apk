@@ -1,4 +1,4 @@
-package com.brydev.sleepwell
+package com.brydev.sleepwell.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

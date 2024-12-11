@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#9FBBD0">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Label Hasil Prediksi -->
+        <TextView
+            android:id="@+id/tv_result_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kemungkinan Kualitas Tidur Buruk"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:padding="8dp" />
+
+        <!-- Skor Prediksi -->
+        <TextView
+            android:id="@+id/tv_prediction_score"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skor Prediksi: 15"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="#424E72" />
+
+        <!-- Saran -->
+        <TextView
+            android:id="@+id/tv_suggestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Berdasarkan inputan umur, jenis kelamin, kafein, alkohol, merokok, olahraga, mungkin mempengaruhi kualitas tidur. Perbanyak olahraga."
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="@color/black"
+            android:padding="8dp" />
+
+        <!-- Tanggal Prediksi -->
+        <TextView
+            android:id="@+id/tv_prediction_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tanggal Prediksi: 2024-12-09"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:padding="4dp"
+            android:textColor="#424E72" />
+
+        <!-- Tombol Kembali -->
+        <Button
+            android:id="@+id/btn_back_to_questions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kembali ke Pertanyaan"
+            android:backgroundTint="#424E72"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            android:padding="12dp" />
+
+    </LinearLayout>
+</ScrollView>
