@@ -4,6 +4,7 @@ import com.brydev.sleepwell.api.model.RegisterResponse
 import com.brydev.sleepwell.model.PredictSleepRequest
 import com.brydev.sleepwell.model.RegisterRequest
 import com.brydev.sleepwell.model.UserResponse
+import com.brydev.sleepwell.ui.ApiResponse
 import com.brydev.sleepwell.ui.PredictionResult
 import retrofit2.Call
 import retrofit2.http.Body
@@ -24,8 +25,13 @@ interface ApiService {
     // Endpoint untuk mendapatkan profil pengguna
     @GET("profile")
     fun getUserProfile(@Header("Authorization") authHeader: String): Call<UserResponse>
+
+    // Endpoint untk prediksi
     @POST("predict")
-    fun predictSleep(@Body data: PredictSleepRequest): Call<PredictionResult>
-    }
+    fun predictSleep(
+        @Header("Authorization") token: String,
+        @Body body: PredictSleepRequest
+    ): Call<ApiResponse>
 
 
+}

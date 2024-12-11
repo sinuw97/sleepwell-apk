@@ -61,11 +61,7 @@ class RegisterActivity : AppCompatActivity() {
             val email = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
             val dob = etDate.text.toString().trim()
-            val gender = when (spGender.selectedItem.toString()) {
-//                "Male" -> "M"
-//                "Female" -> "F"
-                else -> ""
-            }
+            val gender = spGender.selectedItem.toString()
 
             if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty() || dob.isEmpty() || gender.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
@@ -82,6 +78,11 @@ class RegisterActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val registerResponse = response.body()
                         val token = registerResponse?.token //Ambil token JWT
+
+                        val sharedPreferences = getSharedPreferences("SleepWellPrefs", MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.putString("userName", name) // Simpan nama user
+                        editor.apply()
 
                         // Cek token apakah isi/kosong
                         if (!token.isNullOrEmpty()) {

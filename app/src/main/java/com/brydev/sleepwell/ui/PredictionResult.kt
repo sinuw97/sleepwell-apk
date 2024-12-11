@@ -1,9 +1,16 @@
 package com.brydev.sleepwell.ui
 
-import java.io.Serializable
+data class ApiResponse(
+    val status: String,
+    val message: String,
+    val data: PredictionResult
+)
 
 data class PredictionResult(
+    val predictId: String,
+    val userId: String,
     val label: String,
-    val prediction: Float,
-    val suggestion: String
-) : Serializable
+    val prediction: String,
+    val suggestion: String,
+    val createdAt: String
+)

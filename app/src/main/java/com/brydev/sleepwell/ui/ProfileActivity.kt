@@ -2,6 +2,7 @@ package com.brydev.sleepwell.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.brydev.sleepwell.ApiClient
@@ -10,6 +11,9 @@ import com.brydev.sleepwell.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -60,7 +64,10 @@ class ProfileActivity : AppCompatActivity() {
                             etUsername.setText(user.username)
                             etEmail.setText(user.email)
                             etGender.setText(user.gender)
-                            etBirthdate.setText(user.birthdate)
+                            Log.d("ProfileActivity", "Received birthdate: ${user.birthdate}")
+
+                            val formattedDate = formatDate(user.birthdate)
+                            etBirthdate.setText(formattedDate)
                         }
                     } else {
                         Toast.makeText(this@ProfileActivity, "Failed to load profile", Toast.LENGTH_SHORT).show()
@@ -71,5 +78,23 @@ class ProfileActivity : AppCompatActivity() {
                     Toast.makeText(this@ProfileActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
                 }
             })
+    }
+    private fun formatDate(dateString: String): String {
+        try {
+            val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            inputFormatter.timeZone = TimeZone.getTimeZone("UTC")
+            val date = inputFormatter.parse(dateString)
+
+            val outputFormatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+            date?.let {
+                return outputFormatter.format(it)
+            } ?: run {
+                return "Invalid Date"
+            }
+        } catch (e: Exception) {
+            Log.e("ProfileActivity", "Error formatting date: ${e.message}")
+            e.printStackTrace()
+            return "Error formatting date"
+        }
     }
 }

@@ -1,9 +1,11 @@
 package com.brydev.sleepwell
 
 import com.brydev.sleepwell.api.model.RegisterResponse
+import com.brydev.sleepwell.model.PredictSleepRequest
 import com.brydev.sleepwell.ui.PredictionResult
 import com.brydev.sleepwell.model.RegisterRequest
 import com.brydev.sleepwell.model.UserResponse
+import com.brydev.sleepwell.ui.ApiResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -17,6 +19,7 @@ import java.util.concurrent.TimeUnit
 
 object ApiClient {
     private const val BASE_URL = "https://sleepwell-backend-563173319559.asia-southeast2.run.app/"
+    private const val BASE_URL_PREDICT = "https://sleepwell-ml-563173319559.asia-southeast2.run.app/"
 
     private val loggingInterceptor: HttpLoggingInterceptor by lazy {
         HttpLoggingInterceptor().apply {
@@ -41,6 +44,16 @@ object ApiClient {
             .build()
             .create(ApiService::class.java)
     }
+
+    // Instance untuk layanan prediksi
+    val instancePredict: ApiService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL_PREDICT)  // Base URL untuk layanan prediksi
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
+            .create(ApiService::class.java)
+    }
 }
 
 interface ApiService {
@@ -54,7 +67,10 @@ interface ApiService {
     fun getUserProfile(@Header("Authorization") token: String): Call<UserResponse>
 
     @POST("predict")
-    fun predictSleep(@Body data: Map<String, Any>): Call<PredictionResult>
+    fun predictSleep(
+        @Header("Authorization") token: String,
+        @Body body: PredictSleepRequest
+    ): Call<ApiResponse>
 
     @POST("users/profile") // Endpoint untuk update profil, tanpa '/' di depan
     fun updateUserProfile(
@@ -62,3 +78,4 @@ interface ApiService {
         @Body userData: Map<String, String>
     ): Call<UserResponse>
 }
+

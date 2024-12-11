@@ -31,10 +31,13 @@ class HomeActivity : AppCompatActivity() {
         // Hilangkan ActionBar
         supportActionBar?.hide()
 
-        // Menampilkan nama pengguna
-        val username = sharedPreferences.getString("USERNAME", "User") // Default "User" jika tidak ada
-        val greetingTextView: TextView = findViewById(R.id.greetingTextView)
-        greetingTextView.text = "Selamat datang, $username!"
+        // Ambil nama user dari SharedPreferences
+        val sharedPreferences = getSharedPreferences("SleepWellPrefs", MODE_PRIVATE)
+        val user_name = sharedPreferences.getString("userName", "User") // Default "User" jika nama kosong
+
+        val userName = intent.getStringExtra("USER_NAME")
+        val userNameTextView: TextView = findViewById(R.id.userName)
+        userNameTextView.text = userName ?: user_name
 
         // Inisialisasi BottomNavigationView
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottomNavigation)

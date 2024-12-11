@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -14,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.brydev.sleepwell.ApiClient
 import com.brydev.sleepwell.R
 import com.brydev.sleepwell.api.model.RegisterResponse
+import com.brydev.sleepwell.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         sharedPreferences = getSharedPreferences("SleepWellPrefs", MODE_PRIVATE)
+
 
         val edtEmail: EditText = findViewById(R.id.edtEmail)
         val edtPassword: EditText = findViewById(R.id.edtPassword)
@@ -69,12 +72,10 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<RegisterResponse>, response: Response<RegisterResponse>) {
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
-                    Toast.makeText(this@MainActivity, loginResponse?.message ?: "Login successful", Toast.LENGTH_SHORT).show()
-
-                    // Save the JWT token in SharedPreferences
-                    loginResponse?.token?.let { saveToken(it) }
-
-                    navigateToHome()
+                    loginResponse?.token?.let {
+                        saveToken(it) // Simpan token
+                        fetchUserProfile() // Ambil data user setelah token tersimpan
+                    }
                 } else {
                     Toast.makeText(this@MainActivity, "Login failed: ${response.message()}", Toast.LENGTH_SHORT).show()
                 }
@@ -86,13 +87,13 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
     private fun saveToken(token: String) {
         val editor = sharedPreferences.edit()
         editor.putString("auth_token", token)
         editor.putBoolean("is_logged_in", true)
         editor.apply()
     }
-
 
     private fun navigateToHome() {
         val intent = Intent(this@MainActivity, HomeActivity::class.java)
@@ -107,5 +108,45 @@ class MainActivity : AppCompatActivity() {
             navigateToHome()
         }
     }
+
+    private fun fetchUserProfile() {
+        val token = sharedPreferences.getString("auth_token", null)
+        if (token.isNullOrEmpty()) {
+            Toast.makeText(this, "Token not found, please log in again.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Tambahkan Authorization Bearer token
+        ApiClient.instance.getUserProfile("Bearer $token").enqueue(object : Callback<UserResponse> {
+            override fun onResponse(call: Call<UserResponse>, response: Response<UserResponse>) {
+                if (response.isSuccessful) {
+                    val userProfile = response.body()
+                    userProfile?.data?.let {
+                        saveUserName(it.name) // Simpan nama user
+                        val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                        intent.putExtra("USER_NAME", it.name) // Kirim nama user ke HomeActivity
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    Toast.makeText(this@MainActivity, "Failed to fetch user profile: ${response.message()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                Toast.makeText(this@MainActivity, "Error: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun saveUserName(name: String) {
+        val editor = sharedPreferences.edit()
+        editor.putString("userName", name) // Simpan nama user ke SharedPreferences
+        editor.apply()
+        Log.d("SHARED_PREFS", "Saved user name: $name")
+    }
 }
+
+
+
 
