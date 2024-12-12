@@ -3,6 +3,7 @@ package com.brydev.sleepwell.ui
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -11,9 +12,21 @@ import com.brydev.sleepwell.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
+
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var btnSettibg: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_home)
+
+        btnSettibg = findViewById(R.id.settingIcon)
+
+        btnSettibg.setOnClickListener {
+            val intent = Intent(this, SettingsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         // Inisialisasi SharedPreferences
         sharedPreferences = getSharedPreferences("AppPreferences", MODE_PRIVATE)
 
@@ -24,9 +37,6 @@ class HomeActivity : AppCompatActivity() {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
 
         // Hilangkan ActionBar
         supportActionBar?.hide()

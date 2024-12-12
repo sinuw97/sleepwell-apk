@@ -1,5 +1,6 @@
 package com.brydev.sleepwell.ui
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -24,6 +25,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var etGender: EditText
     private lateinit var etBirthdate: EditText
     private lateinit var btnEditProfile: Button
+    private lateinit var btnBack: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,11 +41,18 @@ class ProfileActivity : AppCompatActivity() {
         etGender = findViewById(R.id.etGender)
         etBirthdate = findViewById(R.id.etBirthdate)
         btnEditProfile = findViewById(R.id.btnEditProfile)
+        btnBack = findViewById(R.id.btnBack)
 
         fetchUserProfile()
 
         btnEditProfile.setOnClickListener {
-            // Optionally navigate to EditProfileActivity to allow the user to edit the profile
+
+        }
+
+        btnBack.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

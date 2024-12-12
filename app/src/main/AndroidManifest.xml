@@ -48,6 +48,8 @@
             android:name="com.brydev.sleepwell.ui.QuestionnaireActivity"
             android:exported="true" />
         <activity
+            android:name="com.brydev.sleepwell.ui.SettingsActivity"/>
+        <activity
             android:name="com.brydev.sleepwell.ui.ResultActivity"
             android:exported="true" />
         <activity
