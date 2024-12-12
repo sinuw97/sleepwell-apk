@@ -145,13 +145,27 @@ class QuestionnaireActivity : AppCompatActivity() {
     }
 
     private fun showPredictionResult(result: PredictionResult) {
+
         val message = """
             Label: ${result.label}
             Prediksi: ${result.prediction}
             Saran: ${result.suggestion}
             Dibuat pada: ${result.createdAt}
         """.trimIndent()
+
+        // Simpan hasil ke SharedPreferences
+        val sharedPreferences = getSharedPreferences("SleepWellPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("label", result.label)
+        editor.putString("prediction", result.prediction)
+        editor.putString("suggestion", result.suggestion)
+        editor.putString("createdAt", result.createdAt)
+        editor.apply()
+
         Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-        // Implementasikan navigasi ke layar hasil prediksi, jika ada.
+        // Navigasi ke ResultActivity
+        val intent = Intent(this, ResultActivity::class.java)
+        startActivity(intent)
     }
 }

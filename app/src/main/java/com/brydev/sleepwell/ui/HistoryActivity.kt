@@ -20,6 +20,8 @@ class HistoryActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Hilangkan ActionBar
+        supportActionBar?.hide()
         setContentView(R.layout.activity_history)
 
         historyRecyclerView = findViewById(R.id.historyRecyclerView)

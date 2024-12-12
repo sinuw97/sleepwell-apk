@@ -73,7 +73,6 @@ class ProfileActivity : AppCompatActivity() {
                             etUsername.setText(user.username)
                             etEmail.setText(user.email)
                             etGender.setText(user.gender)
-                            Log.d("ProfileActivity", "Received birthdate: ${user.birthdate}")
 
                             val formattedDate = formatDate(user.birthdate)
                             etBirthdate.setText(formattedDate)
@@ -88,6 +87,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
             })
     }
+
     private fun formatDate(dateString: String): String {
         try {
             val inputFormatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())

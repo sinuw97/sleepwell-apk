@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#9FBBD0"
     android:padding="16dp">
 
     <TextView
@@ -28,17 +29,28 @@
         android:textSize="14sp"
         android:paddingTop="8dp" />
 
+    <TextView
+        android:id="@+id/created_date"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:text="created at"
+        android:textSize="12sp" />
+
+
     <Button
         android:id="@+id/save_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Prediction"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#55679C"
+        android:text="Save Prediction" />
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Back"
+        android:backgroundTint="#3A466A"
         android:layout_marginTop="8dp" />
 </LinearLayout>
